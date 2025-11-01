@@ -1,0 +1,81 @@
+# ==========================
+# 🐍 PYTHON / DJANGO
+# ==========================
+
+# Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ambiente virtual
+venv/
+env/
+ENV/
+*.env
+
+# Arquivos de banco de dados temporários
+db.sqlite3
+*.sqlite3-journal
+
+# Logs e caches
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.egg-info/
+*.egg
+*.manifest
+*.spec
+*.coverage
+coverage/
+htmlcov/
+.pytest_cache/
+.cache/
+local_settings.py
+
+# Arquivos gerados pelo Django
+media/
+staticfiles/
+static/
+tmp/
+.DS_Store
+
+# ==========================
+# NODE / VUE.JS
+# ==========================
+
+# Node modules e builds
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/.cache/
+frontend/.eslintcache
+*.log
+
+# ==========================
+# WINDOWS / SISTEMA
+# ==========================
+Thumbs.db
+Desktop.ini
+
+# ==========================
+# IDEs / Editores
+# ==========================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ==========================
+# ARQUIVOS SENSÍVEIS
+# ==========================
+*.env
+secrets.json
+
+# ==========================
+# OUTROS
+# ==========================
+cotacoes_usd_exemplo.zip
