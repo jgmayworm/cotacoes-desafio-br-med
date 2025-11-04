@@ -33,7 +33,7 @@ const chartOptions = ref({
 })
 
 async function loadData() {
-  const res = await axios.get(`http://localhost:8000/api/taxas/`, {
+  const res = await axios.get(`http://localhost:8000/api/cotacoes/`, {
     params: { inicio: data_inicio.value, fim: data_fim.value, moeda: moeda_cambial.value }
   })
 

@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class TaxaCambio(models.Model):
+class Cotacao(models.Model):
     data = models.DateField()
     moeda_base = models.CharField(max_length=3, default='USD')
     moeda_tgt = models.CharField(max_length=3)

@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from .models import TaxaCambio
+from .models import Cotacao
 
 
-class TaxaCambioSerializer(serializers.ModelSerializer):
+class CotacaoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = TaxaCambio
+        model = Cotacao
         fields = ['data', 'moeda_base', 'moeda_tgt', 'taxa']

@@ -1,8 +1,8 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from datetime import datetime, timedelta
-from .models import TaxaCambio
-from .serializers import TaxaCambioSerializer
+from .models import Cotacao
+from .serializers import CotacaoSerializer
 from .utils import fetch_taxas_cambio
 
 
@@ -20,7 +20,7 @@ def get_taxas(request):
 
     fetch_taxas_cambio(moeda, data_ini, data_fim)
 
-    taxas = TaxaCambio.objects.filter(data__range=[data_ini, data_fim],
-                                      moeda_tgt=moeda)
-    serializer = TaxaCambioSerializer(taxas, many=True)
+    taxas = Cotacao.objects.filter(data__range=[data_ini, data_fim],
+                                   moeda_tgt=moeda)
+    serializer = CotacaoSerializer(taxas, many=True)
     return Response(serializer.data)
