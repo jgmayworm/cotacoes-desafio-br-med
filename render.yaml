@@ -2,7 +2,6 @@ services:
   - type: web
     name: cotacoes-backend
     env: python
-    plan: free
     branch: deploy-render
     buildCommand: pip install -r requirements.txt && python backend/manage.py migrate && python backend/manage.py collectstatic --noinput
     startCommand: gunicorn cotacoes.wsgi:application --chdir backend
@@ -11,7 +10,6 @@ services:
   - type: web
     name: cotacoes-frontend
     env: static
-    plan: free
     branch: deploy-render
     buildCommand: cd frontend && npm install && npm run build
     autoDeploy: true
