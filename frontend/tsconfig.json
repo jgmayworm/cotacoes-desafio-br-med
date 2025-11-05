@@ -1,5 +1,18 @@
 {
   "files": [],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue"],
+   "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "jsx": "preserve",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "lib": ["ESNext", "DOM"],
+    "types": ["vite/client"]
+  },
   "references": [
     {
       "path": "./tsconfig.node.json"
