@@ -23,6 +23,7 @@ import axios from 'axios'
 import Highcharts from 'highcharts'
 import { Chart } from 'highcharts-vue'
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api/cotacoes/";
 const data_inicio = ref('')
 const data_fim= ref('')
 const moeda_cambial = ref('BRL')
@@ -33,7 +34,7 @@ const chartOptions = ref({
 })
 
 async function loadData() {
-  const res = await axios.get(`http://localhost:8000/api/cotacoes/`, {
+  const res = await axios.get(API_BASE_URL, {
     params: { inicio: data_inicio.value, fim: data_fim.value, moeda: moeda_cambial.value }
   })
 
