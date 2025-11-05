@@ -1,1 +1,1 @@
-{"root":["./src/app.test.ts","./src/main.ts","./src/shims-vue.d.ts","./src/__tests__/app.spec.ts","./src/router/index.ts","./src/app.vue","./src/components/chart.vue"],"version":"5.9.3"}
+{"root":["./src/app.test.ts","./src/main.ts","./src/shims-vue.d.ts","./src/__tests__/app.spec.ts","./src/router/index.ts","./src/app.vue","./src/components/chart.vue"],"errors":true,"version":"5.9.3"}

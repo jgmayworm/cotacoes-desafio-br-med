@@ -1,4 +1,3 @@
-/// <reference types="C:/Projects/cotacoes/frontend/node_modules/.vue-global-types/vue_3.5_0.d.ts" />
 import { ref } from 'vue';
 import axios from 'axios';
 import Highcharts from 'highcharts';
