@@ -53,7 +53,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "https://cotacoes-desafio-br-med-front.onrender.com/",  # frontend no Render
+    "https://cotacoes-desafio-br-med-front.onrender.com",  # frontend no Render
     "http://localhost:5173",  # Vite
     "http://127.0.0.1:5173",
 
