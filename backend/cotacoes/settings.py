@@ -52,7 +52,14 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    "https://cotacoes-frontend.onrender.com",  # frontend no Render
+    "http://localhost:5173",  # Vite
+    "http://127.0.0.1:5173",
+    "https://cotacoes-frontend.onrender.com",
+
+]
+
 ROOT_URLCONF = 'cotacoes.urls'
 
 TEMPLATES = [
@@ -120,8 +127,6 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
-
-CORS_ALLOW_ALL_ORIGINS = True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
