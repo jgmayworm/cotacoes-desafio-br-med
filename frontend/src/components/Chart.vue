@@ -35,8 +35,7 @@ import Loading from 'vue3-loading-overlay'
 import 'vue3-loading-overlay/dist/vue3-loading-overlay.css'
 
 // // Configurações
-// const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api/cotacoes/"
-const API_BASE_URL = "http://localhost:8000/api/cotacoes/"
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api/cotacoes/"
 const toast = useToast()
 const loading = ref(false)
 
