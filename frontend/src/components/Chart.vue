@@ -4,12 +4,15 @@
 
     <form @submit.prevent="loadData">
       <label>Data início: <input type="date" v-model="data_inicio" /></label>
+      &nbsp;
       <label>Data fim: <input type="date" v-model="data_fim" /></label>
+      &nbsp;
       <select v-model="moeda_cambial">
         <option value="BRL">BRL</option>
         <option value="EUR">EUR</option>
         <option value="JPY">JPY</option>
       </select>
+      &nbsp;
       <button type="submit">Buscar</button>
     </form>
 
