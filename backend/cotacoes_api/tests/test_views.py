@@ -5,16 +5,20 @@ from unittest.mock import patch
 
 
 class CotacoesAPITest(APITestCase):
-    @patch('cotacoes_api.views.get_taxas')
-    def test_prd_valido(self, mock_coleta):
+
+    @patch('cotacoes_api.views.fetch_taxas_cambio')
+    def test_per_valido(self, mock_coleta):
         url = reverse('get_taxas')
         inicio = date(2025, 10, 1)
         fim = inicio + timedelta(days=3)
-        response = self.client.get(url, {'inicio': inicio, 'fim': fim})
+        response = self.client.get(url, {
+            'inicio': inicio,
+            'fim': fim
+        })
         self.assertEqual(response.status_code, 200)
         mock_coleta.assert_called()
 
-    def test_prd_maior_cinco_dias(self):
+    def test_per_maior_cinco_dias(self):
         url = reverse('get_taxas')
         inicio = date(2025, 10, 1)
         fim = inicio + timedelta(days=10)

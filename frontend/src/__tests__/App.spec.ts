@@ -4,7 +4,7 @@ import { mount } from '@vue/test-utils'
 import App from '../App.vue'
 
 describe('App', () => {
-  it('mounts renders properly', () => {
+  it('renderiza moeda e valor corretamente', () => {
     const wrapper = mount(App)
     expect(wrapper.text()).toContain('Cotações do Dólar')
   })
