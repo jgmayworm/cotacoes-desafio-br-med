@@ -15,8 +15,7 @@
         <option value="JPY">JPY</option>
       </select>
       &nbsp;
-      <button type="submit">Buscar</button>
-      {{ loading ? "..." : "" }}
+      <button type="submit" :disabled="loading">Buscar</button>
     </form>
 
     <!-- Gráfico -->
@@ -35,7 +34,8 @@ import Loading from 'vue3-loading-overlay'
 import 'vue3-loading-overlay/dist/vue3-loading-overlay.css'
 
 // // Configurações
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api/cotacoes/"
+// const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api/cotacoes/"
+const API_BASE_URL = "http://localhost:8000/api/cotacoes/"
 const toast = useToast()
 const loading = ref(false)
 
@@ -44,11 +44,28 @@ const data_inicio = ref('')
 const data_fim = ref('')
 const moeda_cambial = ref('BRL')
 const erro = ref('')
+
 const chartOptions = ref({
   title: { text: 'Cotações' },
   xAxis: { categories: [] },
   series: [{ name: 'Cotação', data: [] }]
 })
+
+function contDiasUteis(inicio, fim) {
+  const start = new Date(inicio)
+  const end = new Date(fim)
+  let count = 0
+
+  while (start <= end) {
+    const day = start.getDay()
+    if (day !== 0 && day !== 6) {
+      count++
+    }
+    start.setDate(start.getDate() + 1)
+  }
+
+  return count
+}
 
 async function loadData() {
   erro.value = ''
@@ -61,9 +78,9 @@ async function loadData() {
     return
   }
 
-  const diffDias = (new Date(data_fim.value) - new Date(data_inicio.value)) / (1000 * 60 * 60 * 24)
+  const diffDias = contDiasUteis(data_inicio.value, data_fim.value)
   if (diffDias > 5) {
-    toast.error('O intervalo máximo é de 5 dias.')
+    toast.error('Selecione um período de no máximo 5 dias úteis (segunda a sexta).')
     loading.value = false
     return
   }
@@ -83,16 +100,26 @@ async function loadData() {
       toast.warning('Nenhuma cotação encontrada para o período selecionado.')
       chartOptions.value.series[0].data = []
     }
+    
+    // Filtra os fins de semana
+    const dadosFiltrados = res.data.filter(r => {
+      const dia = new Date(r.data).getDay()
+      return dia !== 5 && dia !== 6 // se difere de domingo ou sabado
+    })
+
+    if (dadosFiltrados.length === 0) {
+      toast.warning('Nenhum dado disponível para dias úteis no período selecionado.')
+    }
 
     // Atualizando o gráfico
     chartOptions.value = {
       chart: { type: 'line' },
       title: { text: `USD/${moeda_cambial.value}` },
-      xAxis: { type: 'category', categories: dados.map(r => r.data) },
+      xAxis: { type: 'category', ordinal: true, categories: dadosFiltrados.map(r => r.data), },
       yAxis: { title: { text: 'Taxa de câmbio' } },
       series: [{
         name: `USD/${moeda_cambial.value}`,
-        data: dados.map(r => parseFloat(r.taxa) || 0)
+        data: dadosFiltrados.map(r => r.taxa || 0)
       }]
     }
 
@@ -101,7 +128,6 @@ async function loadData() {
     erro.value = 'Erro ao buscar dados...'
     toast.error(erro.value)
   } finally {
-    console.log('cheguei')
     loading.value = false
   }
 }

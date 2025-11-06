@@ -6,6 +6,17 @@ from .serializers import CotacaoSerializer
 from .utils import fetch_taxas_cambio
 
 
+def _dias_uteis(inicio, fim):
+    """Conta dias úteis há entre duas datas"""
+    dias = 0
+    atual = inicio
+    while atual <= fim:
+        if atual.weekday() < 5:
+            dias += 1
+        atual += timedelta(days=1)
+    return dias
+
+
 @api_view(['GET'])
 def get_taxas(request):
     inicio = request.GET.get('inicio')
@@ -15,7 +26,9 @@ def get_taxas(request):
     data_ini = datetime.strptime(inicio, "%Y-%m-%d").date()
     data_fim = datetime.strptime(fim, "%Y-%m-%d").date()
 
-    if (data_fim - data_ini).days > 7:  # aproximadamente 5 dias úteis
+    dias_uteis = _dias_uteis(data_ini, data_fim)
+    print("--------------------------->", dias_uteis)
+    if dias_uteis > 5:
         return Response({"error": "Máximo de 5 dias úteis"}, status=400)
 
     fetch_taxas_cambio(moeda, data_ini, data_fim)
