@@ -27,7 +27,6 @@ def get_taxas(request):
     data_fim = datetime.strptime(fim, "%Y-%m-%d").date()
 
     dias_uteis = _dias_uteis(data_ini, data_fim)
-    print("--------------------------->", dias_uteis)
     if dias_uteis > 5:
         return Response({"error": "Máximo de 5 dias úteis"}, status=400)
 
