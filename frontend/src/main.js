@@ -2,7 +2,7 @@ import Highcharts from 'highcharts';
 // Força idioma padrão global (antes de usar HighchartsVue)
 Highcharts.setOptions({
     lang: {
-        locale: 'en-US' // 👈 idioma seguro e válido
+        locale: 'pt-BR'
     }
 });
 import { createApp } from 'vue';
