@@ -5,9 +5,9 @@
     <h2>Cotações USD / {{ moeda_cambial }}</h2>
 
      <form @submit.prevent="loadData">
-      <label>Data início: <input type="date" v-model="data_inicio" /></label>
+      <label>Data início: <input type="date" v-model="data_inicio" :max="data_corrente" /></label>
       &nbsp;
-      <label>Data fim: <input type="date" v-model="data_fim" /></label>
+      <label>Data fim: <input type="date" v-model="data_fim" :max="data_corrente" /></label>
       &nbsp;
       <select v-model="moeda_cambial">
         <option value="BRL">BRL</option>
@@ -41,6 +41,7 @@ const loading = ref(false)
 // --------------
 const data_inicio = ref('')
 const data_fim = ref('')
+const data_corrente = new Date().toISOString().split('T')[0]
 const moeda_cambial = ref('BRL')
 const erro = ref('')
 
@@ -70,16 +71,22 @@ async function loadData() {
   erro.value = ''
   loading.value = true
 
-  // Validação de datas no frontend
+  // Validando datas não selecionadas
   if (!data_inicio.value || !data_fim.value) {
-    toast.error('Selecione as duas datas antes de buscar.')
+    toast.error('Selecione ambas as datas antes da busca.')
     loading.value = false
+    return
+  }
+
+  // Validando datas futuras- a VatComply permite datas futuras
+  if (new Date(data_inicio.value) > new Date() || new Date(data_fim.value) > new Date()) {
+    toast.warning('Não selecione datas futuras.')
     return
   }
 
   const diffDias = contDiasUteis(data_inicio.value, data_fim.value)
   if (diffDias > 5) {
-    toast.error('Selecione um período de no máximo 5 dias úteis (segunda a sexta).')
+    toast.error('Selecione um período de no máximo 5 dias úteis ')
     loading.value = false
     return
   }
@@ -118,7 +125,7 @@ async function loadData() {
       yAxis: { title: { text: 'Taxa de câmbio' } },
       series: [{
         name: `USD/${moeda_cambial.value}`,
-        data: dadosFiltrados.map(r => r.taxa || 0)
+        data: dadosFiltrados.map(r => Number(parseFloat(r.taxa).toFixed(4)) || 0)
       }]
     }
 
