@@ -44,7 +44,7 @@ OBS: Desenvolvimento não foi considerado em Linux.
 - python manage.py runserver
 - http://localhost:8000
 
-### Configuração do Frontend
+### Frontend
 - cd frontend
 - npm install
 - npm run dev
